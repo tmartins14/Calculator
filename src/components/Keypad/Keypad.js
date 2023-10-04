@@ -1,9 +1,26 @@
 import React from "react";
-import KeypadItem from "../KeypadItem/KeypadItem";
+import Button from "../Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { setInput, clearInput } from "../../store";
 
 const Keypad = () => {
+  const dispatch = useDispatch();
+
+  const input = useSelector((state) => {
+    return state.input.inputTerm;
+  });
+
+  //   console.log(input);
+
+  const handleClick = (event) => {
+    // console.log("before", input);
+    dispatch(setInput(event.target.textContent));
+    console.log("after", input);
+  };
+
   const keyList = [
-    "AC",
+    "C",
+    "()",
     "%",
     "/",
     "7",
@@ -18,13 +35,18 @@ const Keypad = () => {
     "2",
     "3",
     "+",
+    "+/-",
     "0",
     ".",
     "=",
   ];
 
   const renderedItems = keyList.map((key) => {
-    return <KeypadItem key={key}>{key}</KeypadItem>;
+    return (
+      <Button handleClick={handleClick} key={key}>
+        {key}
+      </Button>
+    );
   });
 
   return <div>{renderedItems}</div>;

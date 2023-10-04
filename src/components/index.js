@@ -1,5 +1,5 @@
 import Keypad from "./Keypad/Keypad";
-import KeypadItem from "./KeypadItem/KeypadItem";
+import Button from "./Button/Button";
 import OutputScreen from "./OutputScreen/OutputScreen";
 
-export { Keypad, KeypadItem, OutputScreen };
+export { Keypad, Button, OutputScreen };
