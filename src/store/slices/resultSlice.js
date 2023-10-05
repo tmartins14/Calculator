@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { evaluate } from "mathji s";
 
 const resultSlice = createSlice({
   name: "result",
@@ -7,7 +8,7 @@ const resultSlice = createSlice({
   },
   reducers: {
     calculateResult(state, action) {
-      console.log(state);
+      state.resultTerm = eval(action.payload);
     },
     clearResult(state, action) {
       state.resultTerm = "";

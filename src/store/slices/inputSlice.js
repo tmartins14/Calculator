@@ -1,27 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { calculateResult } from "./resultSlice";
 
 const inputSlice = createSlice({
   name: "input",
   initialState: {
-    inputTerm: "",
+    inputTerm: "0",
   },
   reducers: {
     setInput(state, action) {
-      if (state.inputTerm === "") {
-        console.log("initial state:", state.inputTerm);
+      if (state.inputTerm === "0") {
         state.inputTerm = action.payload;
-        console.log("new state:", state.inputTerm);
       } else {
         state.inputTerm = state.inputTerm + action.payload;
-        console.log("Current state:", state.inputTerm);
       }
     },
-    // Clicking the AC Button
-    clearInput(state, action) {
-      state.inputTerm = "";
+    applyNegative(state, action) {
+      state.inputTerm = state.inputTerm + "*(-1)";
     },
+    // Clicking the C Button
+    clearInput(state, action) {
+      state.inputTerm = "0";
+    },
+  },
+  extraReducers(builder) {
+    builder.addCase(calculateResult, (state, action) => {
+      state.inputTerm = eval(action.payload);
+    });
   },
 });
 
-export const { setInput, clearInput } = inputSlice.actions;
+export const { setInput, clearInput, applyNegative } = inputSlice.actions;
 export const inputReducer = inputSlice.reducer;

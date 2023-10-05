@@ -1,7 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const OutputScreen = () => {
-  return <div>OutputScreen</div>;
+  const input = useSelector((state) => {
+    // console.log(state);
+    return state.input.inputTerm;
+  });
+
+  return <div>{input}</div>;
 };
 
 export default OutputScreen;

@@ -1,10 +1,11 @@
 import React from "react";
-import { OutputScreen, Keypad, Button } from "./components";
+import { OutputScreen, Keypad } from "./components";
 
 const App = () => {
   return (
     <div>
-      <OutputScreen /> <Keypad /> <Button />
+      <OutputScreen />
+      <Keypad />
     </div>
   );
 };

@@ -1,5 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { setInput, clearInput, inputReducer } from "./slices/inputSlice";
+import {
+  setInput,
+  clearInput,
+  applyNegative,
+  inputReducer,
+} from "./slices/inputSlice";
 import {
   calculateResult,
   clearResult,
@@ -13,4 +18,11 @@ const store = configureStore({
   },
 });
 
-export { store, setInput, clearInput, calculateResult, clearResult };
+export {
+  store,
+  setInput,
+  clearInput,
+  applyNegative,
+  calculateResult,
+  clearResult,
+};

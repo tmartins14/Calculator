@@ -1,21 +1,36 @@
 import React from "react";
 import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { setInput, clearInput } from "../../store";
+import {
+  setInput,
+  clearInput,
+  calculateResult,
+  clearResult,
+  applyNegative,
+} from "../../store";
+
+import style from "./Keypad.module.css";
 
 const Keypad = () => {
   const dispatch = useDispatch();
 
-  const input = useSelector((state) => {
-    return state.input.inputTerm;
+  const { input } = useSelector(({ input }) => {
+    return {
+      input: input.inputTerm,
+    };
   });
 
-  //   console.log(input);
-
   const handleClick = (event) => {
-    // console.log("before", input);
-    dispatch(setInput(event.target.textContent));
-    console.log("after", input);
+    if (event.target.textContent === "=") {
+      dispatch(calculateResult(input));
+    } else if (event.target.textContent === "C") {
+      dispatch(clearInput());
+      dispatch(clearResult());
+    } else if (event.target.textContent === "+/-") {
+      dispatch(applyNegative());
+    } else {
+      dispatch(setInput(event.target.textContent));
+    }
   };
 
   const keyList = [
@@ -42,14 +57,33 @@ const Keypad = () => {
   ];
 
   const renderedItems = keyList.map((key) => {
+    let buttonType;
+
+    if (!isNaN(key)) {
+      buttonType = "number";
+    } else {
+      switch (key) {
+        case "C":
+          buttonType = "clear";
+          break;
+
+        case "=":
+          buttonType = "equal";
+          break;
+
+        default:
+          buttonType = "operator";
+      }
+    }
+
     return (
-      <Button handleClick={handleClick} key={key}>
+      <Button handleClick={handleClick} key={key} buttonType={buttonType}>
         {key}
       </Button>
     );
   });
 
-  return <div>{renderedItems}</div>;
+  return <div className={style.keypad_grid}>{renderedItems}</div>;
 };
 
 export default Keypad;
