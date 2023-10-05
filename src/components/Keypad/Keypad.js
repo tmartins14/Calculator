@@ -56,24 +56,19 @@ const Keypad = () => {
     "=",
   ];
 
+  const operatorKeys = ["/", "*", "-", "+", "="];
+  const functionKeys = ["C", "()", "%"];
+  //   const numberKeys = ['1','2','3','4','5','6','7','8','9','0','+/-','.']
+
   const renderedItems = keyList.map((key) => {
     let buttonType;
 
-    if (!isNaN(key)) {
-      buttonType = "number";
+    if (operatorKeys.includes(key)) {
+      buttonType = "operator";
+    } else if (functionKeys.includes(key)) {
+      buttonType = "function";
     } else {
-      switch (key) {
-        case "C":
-          buttonType = "clear";
-          break;
-
-        case "=":
-          buttonType = "equal";
-          break;
-
-        default:
-          buttonType = "operator";
-      }
+      buttonType = "number";
     }
 
     return (

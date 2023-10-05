@@ -24,7 +24,13 @@ const inputSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(calculateResult, (state, action) => {
-      state.inputTerm = eval(action.payload);
+      try {
+        state.inputTerm = eval(action.payload);
+        state.error = null;
+      } catch (error) {
+        state.inputTerm = "Error";
+        state.error = error.message;
+      }
     });
   },
 });

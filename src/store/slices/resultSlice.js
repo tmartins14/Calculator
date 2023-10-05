@@ -1,17 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { evaluate } from "mathji s";
 
 const resultSlice = createSlice({
   name: "result",
   initialState: {
     resultTerm: "",
+    error: null,
   },
   reducers: {
     calculateResult(state, action) {
-      state.resultTerm = eval(action.payload);
+      try {
+        state.resultTerm = eval(action.payload);
+        state.error = null;
+      } catch (error) {
+        state.resultTerm = "";
+        state.error = error.message;
+      }
     },
     clearResult(state, action) {
       state.resultTerm = "";
+      state.error = null;
     },
   },
 });
